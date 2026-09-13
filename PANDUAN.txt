@@ -1,50 +1,26 @@
-KAFA — VERSI GITHUB PAGES
+KAFA AN NUR — KEMAS KINI LOGIN
 
-URL Apps Script cikgu telah dimasukkan ke dalam index.html.
-Paparan dan login berjalan di GitHub Pages; data dibaca/disimpan melalui Apps Script dengan semakan akses di pelayan.
+Guru: pilih Guru, masukkan kata laluan Guru123. Tiada nama pengguna diperlukan.
+Ibu bapa: pilih Ibu bapa, masukkan No KP murid seperti sebelum ini.
+Paparan julat markah dan gred telah dibuang daripada login.
+Nama sekolah pada antaramuka: KAFA AN NUR. Pada slip Jawi: کافا النور.
 
-1. KEMAS KINI APPS SCRIPT (WAJIB SEKALI)
-- Buka projek Apps Script sedia ada.
-- Gantikan semua kod Code.gs dengan apps-script/Code.gs dalam pakej ini.
-- Kekalkan fail Index HTML lama di projek Apps Script. Fail tersebut diperlukan jika cikgu membuka URL Apps Script secara terus.
-- Kekalkan Script Properties sedia ada. Jika setup_ sudah berjaya dijalankan dahulu, TIDAK perlu jalankan semula.
-- Jika belum setup: tetapkan GURU_USERNAME dan GURU_PASSWORD (minimum 10 aksara) dalam Script Properties, lalu Run setup_.
-- Pilih Deploy > Manage deployments > ikon pensel > Version: New version > Deploy.
-- Pastikan Execute as: Me dan Who has access: Anyone (tertakluk dasar akaun).
-- Edit deployment sedia ada untuk mengekalkan URL yang cikgu berikan. Jika memilih New deployment dan mendapat URL lain, kemas kini APPS_SCRIPT_URL dalam index.html.
+1. APPS SCRIPT
+Gantikan Code.gs menggunakan apps-script/Code.gs.
+Gantikan kandungan fail HTML Index menggunakan apps-script/Index.html.
+Jika setup pernah selesai, tidak perlu jalankan setup_ semula. Tetapan GURU_USERNAME/GURU_PASSWORD/GURU_HASH lama tidak digunakan untuk login versi ini.
+Jika ini pemasangan pertama, jalankan setup_ untuk mencipta tab rekod.
+Deploy > Manage deployments > Edit > New version > Deploy.
+Kekalkan URL deployment sedia ada, Execute as Me, akses Anyone.
+Kata laluan disahkan pada pelayan; ia tidak diletakkan dalam fail HTML GitHub.
 
-Mengapa perlu kemas kini: kod lama menerima panggilan google.script.run dari halaman Apps Script sahaja. Versi ini menambah endpoint doPost JSON untuk GitHub Pages; tetapan, data dan akaun guru sedia ada dikekalkan.
+2. GITHUB
+Upload github-pages/index.html ke aras utama repository dan gantikan index.html lama. Commit changes.
+Settings > Pages: Deploy from a branch, main, / (root).
+Selepas penerbitan selesai, muat semula laman. Jika halaman lama masih muncul, gunakan hard refresh atau buka tetingkap incognito.
+Jangan upload ZIP sahaja. Folder apps-script digunakan dalam editor Apps Script; hanya kandungan folder github-pages perlu di GitHub.
 
-2. UPLOAD KE GITHUB
-- Cipta atau buka repository untuk sistem.
-- Pilih Add file > Upload files.
-- Upload KANDUNGAN folder github-pages, terutama index.html, ke aras utama repository.
-- Commit changes. Jangan upload fail ZIP sahaja; ekstrak dahulu.
-- Fail .nojekyll disertakan sebagai pilihan. index.html sahaja mencukupi untuk halaman ini.
-- Folder apps-script dan panduan tidak perlu dimuat naik ke repository.
+URL Apps Script telah dikekalkan dalam index.html:
+https://script.google.com/macros/s/AKfycbwcqFiUnWbpDZutMB-pEdB_i88cfkQ9FN_zLKk6Ub1XQo3VPAodhMv3IysOcsHPVdfP0w/exec
 
-3. AKTIFKAN GITHUB PAGES
-Settings > Pages > Build and deployment:
-Source: Deploy from a branch
-Branch: main
-Folder: / (root)
-Save.
-Tunggu penerbitan selesai dan buka pautan laman yang dipaparkan oleh GitHub.
-
-4. SEMAK SELEPAS PUBLISH
-- Login guru.
-- Pilih kelas, pentaksiran, subjek. Simpan satu rekod ujian yang sesuai.
-- Muat semula laman, login semula, pastikan rekod dibaca semula.
-- Login ibu bapa dengan No KP murid tersebut; semak hanya slip murid itu dipaparkan.
-- Uji Cetak / Simpan PDF.
-
-STATUS PENGUJIAN
-Sintaks JavaScript, dispatch endpoint, penolakan tindakan tidak dibenarkan dan format respons diuji secara tempatan. Ujian fungsi simpan/baca dan sekatan peranan menggunakan simulasi perkhidmatan Google turut lulus.
-Sambungan merentas domain dari GitHub ke deployment sebenar belum diuji. Ia memerlukan cikgu memasang endpoint baharu dan menerbitkan GitHub Pages dahulu. Tiada markah sebenar ditulis semasa penyediaan pakej ini.
-
-Jika mesej respons bukan JSON atau sambungan gagal muncul, semak bahawa Code.gs baharu telah dideploy sebagai NEW VERSION dan akses ialah Anyone. Membuka URL /exec terus masih memaparkan antaramuka Apps Script lama; ini normal kerana API GitHub menggunakan POST.
-Jangan tukar fetch kepada no-cors: sistem perlu membaca pengesahan simpan daripada pelayan.
-
-RUJUKAN
-https://developers.google.com/apps-script/guides/content
-https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+Pengesahan tempatan: sintaks, login guru tanpa nama pengguna, kata laluan salah ditolak, login ibu bapa, dan penukaran medan login. Deployment sebenar perlu dikemas kini sebelum login Guru123 berfungsi.
