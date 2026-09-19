@@ -1,0 +1,28 @@
+{
+  "name": "Sistem Analisis Markah سكوله رنده اݢام رعيت النور",
+  "short_name": "Analisis Markah",
+  "description": "Sistem input markah, kehadiran, analisis dan pelaporan murid سكوله رنده اݢام رعيت النور.",
+  "lang": "ms",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0f766e",
+  "background_color": "#f4f7f4",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

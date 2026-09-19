@@ -1,104 +1,41 @@
-# Sistem Analisis Peperiksaan KAFA
+# Sistem Analisis Markah KAFA An Nur
 
-Sistem web app Google Apps Script untuk analisis peperiksaan KAFA AN NUR.
+Fail ini disediakan untuk deploy sebagai laman statik di GitHub Pages.
 
-## Fungsi
+## Cara Deploy Di GitHub Pages
 
-- Login guru menggunakan password.
-- Login ibu bapa menggunakan no kad pengenalan murid.
-- Input markah akademik maksimum 70 markah.
-- Input markah sahsiah maksimum 30 markah.
-- Analisis individu mengikut kelas dan pentaksiran.
-- Kedudukan murid dalam kelas berdasarkan jumlah keseluruhan.
-- Analisis mengikut subjek dengan taburan gred, carta bar dan statistik.
-- Slip pencapaian murid dalam tulisan Jawi.
-- Data disimpan dan dibaca semula daripada Google Sheet.
-- Tab data akan dicipta automatik jika belum wujud.
+1. Cipta repository baharu di GitHub.
+2. Upload semua fail dan folder dalam pakej ini ke root repository:
+   - `index.html`
+   - `styles.css`
+   - `app.js`
+   - `manifest.webmanifest`
+   - `sw.js`
+   - folder `icons`
+   - folder `apps-script`
+3. Pergi ke `Settings` > `Pages`.
+4. Pada `Build and deployment`, pilih:
+   - Source: `Deploy from a branch`
+   - Branch: `main`
+   - Folder: `/root`
+5. Tekan `Save`.
 
-## Fail
+GitHub akan beri URL seperti:
 
-- `Code.gs` - backend Google Apps Script.
-- `Index.html` - antaramuka web app.
-- `appsscript.json` - manifest projek Apps Script.
+`https://nama-akaun.github.io/nama-repository/`
 
-## Google Sheet
+## Nota Apps Script
 
-Sistem menggunakan Google Sheet berikut sebagai pangkalan data:
+Sistem web ini sudah disambungkan kepada URL Apps Script yang dimasukkan dalam `app.js`.
 
-```text
-13gq0_w4zk03Imy8U6hQQ8GYKrPBpSY4S5HrQhW4AcA
-```
+Fail `apps-script/Code.gs` disertakan sebagai salinan kod backend sekiranya perlu dipasang semula atau dikemas kini di Google Apps Script.
 
-Tab yang akan digunakan:
+## Nota PWA
 
-- `MarkahAkademik`
-- `MarkahSahsiah`
+Fail PWA telah disertakan:
 
-Jika tab belum wujud, sistem akan menciptanya secara automatik.
+- `manifest.webmanifest`
+- `sw.js`
+- ikon dalam folder `icons`
 
-## Sumber Data CSV
-
-Senarai murid, kelas dan no kad pengenalan:
-
-```text
-https://docs.google.com/spreadsheets/d/e/2PACX-1vQAPisKp7T1wtaGs2pncolfMICzOsoOXYOGyXH5BTjNl_WhclbXDI00dzSZPFE6e_WJjdPhv1LNbD3T/pub?gid=0&single=true&output=csv
-```
-
-Senarai subjek dan pentaksiran:
-
-```text
-https://docs.google.com/spreadsheets/d/e/2PACX-1vQAPisKp7T1wtaGs2pncolfMICzOsoOXYOGyXH5BTjNl_WhclbXDI00dzSZPFE6e_WJjdPhv1LNbD3T/pub?gid=1037190385&single=true&output=csv
-```
-
-## Gred
-
-Gred akademik:
-
-- `A`: 53-70
-- `B`: 35-52
-- `C`: 17-34
-- `D`: 0-16
-
-Gred sahsiah dan keseluruhan menggunakan skala yang sama secara nisbah mengikut markah maksimum.
-
-## Cara Upload Ke GitHub
-
-1. Buka GitHub.
-2. Cipta repository baharu, contohnya `sistem-analisis-peperiksaan-kafa`.
-3. Upload semua fail dalam folder ini:
-   - `Code.gs`
-   - `Index.html`
-   - `appsscript.json`
-   - `README.md`
-4. Commit fail tersebut.
-
-## Cara Pasang Ke Google Apps Script
-
-1. Buka [Google Apps Script](https://script.google.com/).
-2. Cipta projek baharu.
-3. Padam kod asal dalam `Code.gs`.
-4. Tampal kandungan `Code.gs` daripada repository ini.
-5. Cipta fail HTML bernama `Index`.
-6. Tampal kandungan `Index.html`.
-7. Buka `Project Settings` dan pastikan runtime ialah V8.
-8. Klik `Deploy` > `New deployment`.
-9. Pilih `Web app`.
-10. Tetapkan:
-    - `Execute as`: `Me`
-    - `Who has access`: `Anyone with the link`
-11. Klik `Deploy`.
-12. Buka URL web app yang diberi.
-
-## Login
-
-Password guru:
-
-```text
-Gurukafaannur123
-```
-
-Ibu bapa login menggunakan no kad pengenalan murid.
-
-## Nota Penting
-
-Fail `Index.html` tidak boleh digunakan terus sebagai laman GitHub Pages kerana ia bergantung kepada `google.script.run`. Sistem mesti dibuka melalui URL deployment Google Apps Script.
+Selepas deploy, buka laman melalui URL GitHub Pages dan gunakan fungsi `Pasang aplikasi` jika browser/peranti menyokong PWA.

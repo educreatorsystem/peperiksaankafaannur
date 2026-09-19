@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistem Analisis Markah | سكوله رنده اݢام رعيت النور</title>
+  <meta name="description" content="Sistem analisis markah, kehadiran dan pelaporan murid سكوله رنده اݢام رعيت النور.">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Analisis Markah">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="statusModal" class="status-modal hidden" role="dialog" aria-modal="true" aria-labelledby="statusModalTitle">
+    <div class="status-card">
+      <div id="statusModalIcon" class="status-icon">✓</div>
+      <div>
+        <h2 id="statusModalTitle">Status Penyimpanan</h2>
+        <p id="statusModalMessage">Data berjaya disimpan.</p>
+      </div>
+      <button id="statusModalClose" class="secondary-btn" type="button">Tutup</button>
+    </div>
+  </div>
+
+  <main id="loginScreen" class="login-shell">
+    <section class="login-panel">
+      <div class="brand-lockup">
+        <img class="school-crest" src="https://iili.io/nqIgmR2.md.jpg" alt="Lencana سكوله رنده اݢام رعيت النور">
+        <div>
+          <p class="eyebrow" lang="ms-Arab" dir="rtl">سكوله رنده اݢام رعيت النور</p>
+          <h1>Sistem Analisis Markah</h1>
+        </div>
+      </div>
+
+      <div class="login-grid">
+        <form id="teacherLoginForm" class="login-box">
+          <h2>Log Masuk Guru</h2>
+          <label for="teacherPassword">Password guru</label>
+          <input id="teacherPassword" type="password" autocomplete="current-password" placeholder="Masukkan password guru">
+          <button type="submit" class="primary-btn">Log masuk</button>
+        </form>
+
+        <form id="parentLoginForm" class="login-box">
+          <h2>Log Masuk Ibu Bapa</h2>
+          <label for="parentIc">No kad pengenalan murid</label>
+          <input id="parentIc" type="password" inputmode="numeric" autocomplete="off" placeholder="Contoh: 120101010101">
+          <button type="submit" class="primary-btn">Lihat slip anak</button>
+        </form>
+      </div>
+
+      <p class="login-note">Nama murid, kelas, pentaksiran dan subjek dibaca terus daripada Google Sheet yang diterbitkan.</p>
+    </section>
+  </main>
+
+  <main id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="https://iili.io/nqIgmR2.md.jpg" alt="Lencana سكوله رنده اݢام رعيت النور">
+        <div>
+          <strong lang="ms-Arab" dir="rtl">سكوله رنده اݢام رعيت النور</strong>
+          <span>Sistem Analisis Markah</span>
+        </div>
+      </div>
+      <nav id="mainTabs" class="tab-list" aria-label="Navigasi utama">
+        <button class="tab-btn active" data-tab="marksTab">Input Markah</button>
+        <button class="tab-btn" data-tab="attendanceTab">Input Kehadiran</button>
+        <button class="tab-btn" data-tab="individualTab">Analisis Individu</button>
+        <button class="tab-btn" data-tab="subjectTab">Analisis Subjek</button>
+        <button class="tab-btn" data-tab="overallTab">Analisis Keseluruhan</button>
+        <button class="tab-btn" data-tab="reportTab">Pelaporan</button>
+      </nav>
+      <button id="refreshDataBtn" class="ghost-btn full">Segar semula data</button>
+      <button id="installAppBtn" class="ghost-btn full hidden" type="button">Pasang aplikasi</button>
+      <button id="logoutBtn" class="ghost-btn full">Log keluar</button>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" lang="ms-Arab" dir="rtl">سكوله رنده اݢام رعيت النور</p>
+          <h2 id="pageTitle">Input Markah</h2>
+        </div>
+        <div class="sync-state">
+          <span id="syncLabel">Memuatkan data...</span>
+        </div>
+      </header>
+
+      <section id="marksTab" class="tab-page active">
+        <div class="toolbar">
+          <label>Kelas
+            <select id="marksClass"></select>
+          </label>
+          <label>Pentaksiran
+            <select id="marksAssessment"></select>
+          </label>
+          <label>Subjek
+            <select id="marksSubject"></select>
+          </label>
+          <button id="saveMarksBtn" class="primary-btn">Simpan markah</button>
+        </div>
+        <div id="marksTableWrap" class="table-wrap"></div>
+      </section>
+
+      <section id="attendanceTab" class="tab-page">
+        <div class="toolbar">
+          <label>Kelas
+            <select id="attendanceClass"></select>
+          </label>
+          <label>Pentaksiran
+            <select id="attendanceAssessment"></select>
+          </label>
+          <button id="saveAttendanceBtn" class="primary-btn">Simpan semua</button>
+        </div>
+        <div id="attendanceTableWrap" class="table-wrap"></div>
+      </section>
+
+      <section id="individualTab" class="tab-page">
+        <div class="toolbar">
+          <label>Kelas
+            <select id="individualClass"></select>
+          </label>
+          <label>Pentaksiran
+            <select id="individualAssessment"></select>
+          </label>
+          <button class="secondary-btn print-trigger" type="button">Cetak analisis</button>
+        </div>
+        <div id="individualPrint" class="print-content report-surface"></div>
+      </section>
+
+      <section id="subjectTab" class="tab-page">
+        <div class="toolbar">
+          <label>Pentaksiran
+            <select id="subjectAssessment"></select>
+          </label>
+          <label>Kelas
+            <select id="subjectClass"></select>
+          </label>
+          <label>Subjek
+            <select id="subjectName"></select>
+          </label>
+          <button class="secondary-btn print-trigger" type="button">Cetak analisis</button>
+        </div>
+        <div id="subjectPrint" class="print-content report-surface"></div>
+      </section>
+
+      <section id="overallTab" class="tab-page">
+        <div class="toolbar">
+          <label>Pentaksiran
+            <select id="overallAssessment"></select>
+          </label>
+          <label>Aliran
+            <select id="overallStream"></select>
+          </label>
+          <button class="secondary-btn print-trigger" type="button">Cetak analisis</button>
+        </div>
+        <div id="overallPrint" class="print-content report-surface"></div>
+      </section>
+
+      <section id="reportTab" class="tab-page">
+        <div class="toolbar">
+          <label>Kelas
+            <select id="reportClass"></select>
+          </label>
+          <label>Pentaksiran
+            <select id="reportAssessment"></select>
+          </label>
+          <label>Tandatangan Guru Besar
+            <input id="headSignatureInput" type="file" accept="image/*">
+          </label>
+          <label>Nama Guru Besar
+            <input id="headTeacherNameInput" type="text" placeholder="Nama Guru Besar">
+          </label>
+          <label>Tandatangan Guru
+            <input id="teacherSignatureInput" type="file" accept="image/*">
+          </label>
+          <label>Nama Guru
+            <input id="teacherNameInput" type="text" placeholder="Nama Guru">
+          </label>
+          <button class="secondary-btn print-trigger" type="button">Cetak slip</button>
+        </div>
+        <div id="reportPrint" class="print-content report-stack"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js?v=11"></script>
+</body>
+</html>
